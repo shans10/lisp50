@@ -82,12 +82,12 @@ void lval_del(lval* v) {
         /* If Qexpr or Sexpr then delete all elements inside */
         case LVAL_QEXPR:
         case LVAL_SEXPR:
-           for (int i = 0; i < v-> count; i++) {
+           for (int i = 0; i < v->count; i++) {
                lval_del(v->cell[i]);
            }
            /* Also free the memory allocated to contain the pointers */
            free(v->cell);
-           break;
+        break;
     }
 
     free(v);
@@ -200,6 +200,7 @@ lval* builtin_eval(lval* a) {
 }
 
 lval* builtin_join(lval* a) {
+
     for (int i = 0; i < a->count; i++) {
         LASSERT(a, a->cell[i]->type == LVAL_QEXPR,
                 "Function 'join' passed incorrect type.");
@@ -210,11 +211,13 @@ lval* builtin_join(lval* a) {
     while (a->count) {
         x = lval_join(x, lval_pop(a, 0));
     }
+
     lval_del(a);
     return x;
 }
 
 lval* builtin_op(lval* a, char* op) {
+
     for (int i = 0; i < a->count; i++) {
         if (a->cell[i]->type != LVAL_NUM) {
             lval_del(a);
@@ -310,6 +313,7 @@ lval* lval_read(mpc_ast_t* t) {
         if (strcmp(t->children[i]->contents, ")") == 0) { continue; }
         if (strcmp(t->children[i]->contents, "}") == 0) { continue; }
         if (strcmp(t->children[i]->contents, "{") == 0) { continue; }
+        if (strcmp(t->children[i]->tag,  "regex") == 0) { continue; }
         x = lval_add(x, lval_read(t->children[i]));
     }
 
