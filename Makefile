@@ -3,7 +3,7 @@ LIBS = -ledit -lm
 CFLAGS  = -g -Wall
 
 # the build target executable:
-TARGET = q_expressions
+TARGET = variables
 
 all: $(TARGET)
 
