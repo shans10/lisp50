@@ -3,7 +3,7 @@ LIBS = -ledit -lm
 CFLAGS  = -g -Wall
 
 # the build target executable:
-TARGET = variables
+TARGET = functions
 
 all: $(TARGET)
 
