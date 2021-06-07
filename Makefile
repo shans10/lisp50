@@ -3,7 +3,7 @@ LIBS = -ledit -lm
 CFLAGS  = -g -Wall
 
 # the build target executable:
-TARGET = conditionals
+TARGET = strings
 
 all: $(TARGET)
 
