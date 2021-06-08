@@ -1,14 +1,28 @@
+# -*- MakeFile -*- #
+
+TARGET = lisp50
+LIBS = -lm -ledit
 CC = gcc
-LIBS = -ledit -lm
-CFLAGS  = -g -Wall
+CFLAGS = -g -Wall -MMD -MP -std=c99
 
-# the build target executable:
-TARGET = strings
+default: $(TARGET)
 
-all: $(TARGET)
+OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))
+DEPS = $(OBJECTS:.o=.d)
 
-$(TARGET): $(TARGET).c
-	$(CC) $(CFLAGS) $(TARGET).c mpc.c $(LIBS) -o lispy
+-include $(DEPS)
+
+%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+
+.PRECIOUS: $(TARGET) $(OBJECTS)
+
+$(TARGET): $(OBJECTS)
+	    $(CC) $(OBJECTS) -Wall $(LIBS) -o $@
+
+.PHONY: clean
 
 clean:
-	$(RM) $(TARGET)
+	rm -f *.o
+	rm -f $(TARGET)
