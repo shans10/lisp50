@@ -5,23 +5,39 @@ A minimal Lisp built using C programming language based on the book [Build Your 
 
 ## Compilation and Execution
 
+### Getting Started
 * Clone the repository  
 `git clone https://github.com/shans10/lisp50`  
 * Compile it with 'make' command  
 `make`
 
-**Note**: This project requires *editline* library to compile which can be installed in the following ways:
-### Mac OS
+**Note**: This project requires *editline* library to compile which can be installed in the following ways:  
+#### Windows  
+Windows already provides the functionality that this library comes with so you can compile this program as is on Windows.  
+
+#### Mac OS
 On Mac the editline library comes with *Command Line Tools* which can be installed using:  
 `xcode-select --install`
 
-### Linux
-**Ubuntu**: `sudo apt-get install libedit-dev`  
-**Fedora**: `sudo dnf install libedit-devel`  
+#### Linux
+*Ubuntu*: `sudo apt-get install libedit-dev`  
+*Fedora*: `sudo dnf install libedit-devel`  
 
-After the compilation is succesful it can be simply executed by invoking `./lisp50`  
+**NOTE:** If you are using any other system then search the instructions for installing *editline* on your distribution online. If the search does not yield any results then search for *readline* instead which is a drop-in replacement for *editline*.  
 
-### Prompt
+### Execution  
+After the compilation is succesful it can be simply executed by invoking: 
+#### Unix/Linux  
+`./lisp50`  
+
+#### Windows (Powershell)
+`.\lisp50.exe`
+
+### Cleanup
+In order to cleanup all files generated after compilation including executable simply run:  
+`make clean`
+
+## Prompt
 ```
 Lisp50 Version 1.0  
 Press Ctrl+c or type 'exit' to Exit  
@@ -32,13 +48,13 @@ This is the prompt the user will get after running the executable. Now the user 
 
 **Note:** To exit the prompt either press `Ctrl+c` or type `exit` and press Enter.
 
-### Basic Language Syntax
+## Basic Language Syntax
 This version of lisp uses  Polish Notation or pre-fix notation i.e. the operator comes before the operands.  
 *Example:* `(* 5 10)` or `(+ 7 (* 2 9))`
 
 **Note:** Expressions are evaluated recursively i.e. `(* (+ 5 6) (- 10 5))` = `(* 11 5)` = `55`
 
-### Data Types
+## Data Types
 | Types           | Examples                         | Description(if any) |  
 | --------------- | -------------------------------- | ------------------- |  
 | Integers        |  `1`, `-4`, `55`, `0`  
@@ -48,7 +64,7 @@ This version of lisp uses  Polish Notation or pre-fix notation i.e. the operator
 | Q-Expressions   | `{1 2 3}`, `{hello world}`       | They are space seperated lists inside curly braces and are not evaluated automatically. |
 | Functions       | `(tail {1 2 3})`, `list 1 2 3 4` | These are builtin functions. This lisp also provides the user ability to create their own functions. |  
 
-### User Defined Functions
+## User Defined Functions
 The users can define their own functions by following the below syntax:  
 ```
 Lisp50 Version 1.0
@@ -78,7 +94,7 @@ lisp50> add-together 10 8
 lisp50>
 ```
 
-### Standard Library
+## Standard Library
 The standard library file `stdlib.lspy` is automatically loaded on execution and contains some of the useful functions added using our lisp language instead of C language. One of those functions `fun` has been already mentioned above.  
 Some other useful functions are:
 
