@@ -1,7 +1,14 @@
 # -*- MakeFile -*- #
 
 TARGET = lisp50
-LIBS = -lm -ledit
+
+# Windows does not have editline library so do not include '-ledit' flag when compiling on windows.
+ifdef OS
+	LIBS = -lm
+else
+	LIBS = -lm -ledit
+endif
+
 CC = gcc
 CFLAGS = -g -Wall -MMD -MP -std=c99
 
@@ -23,6 +30,22 @@ $(TARGET): $(OBJECTS)
 
 .PHONY: clean
 
+# Specifying remove file command for Windows(Powershell) and Unix/Linux
+ifeq ($(OS),Windows_NT)
+RM = del /Q /F
+CP = copy /Y
+EXEC = $(TARGET).exe
+ifdef ComSpec
+SHELL := $(ComSpec)
+endif
+ifdef COMSPEC
+SHELL := $(COMSPEC)
+endif
+else
+RM = rm -rf
+CP = cp -f
+EXEC = $(TARGET)
+endif
+
 clean:
-	rm -f *.o
-	rm -f $(TARGET)
+	-$(RM) $(EXEC) *.d *.o
